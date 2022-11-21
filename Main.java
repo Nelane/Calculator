@@ -3,24 +3,30 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
-        String[] str;
-        String[] sim = {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX",
-                "XX", "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI", "XXVII", "XXVIII", "XXIX",
-                "XXX", "XXXI", "XXXII", "XXXIII", "XXXIV", "XXXV", "XXXVI", "XXXVII", "XXXVIII", "XXXIX",
-                "XL", "XLI", "XLII", "XLIII", "XLIV", "XLV", "XLVI", "XLVII", "XLVIII", "XLIX",
-                "L", "LI", "LII", "LIII", "LIV", "LV", "LVI", "LVII", "LVIII", "LIX",
-                "LX", "LXI", "LXII", "LXIII", "LXIV", "LXV", "LXVI", "LXVII", "LXVIII", "LXIX",
-                "LXX", "LXXI", "LXXII", "LXXIII", "LXXIV", "LXXV", "LXXVI", "LXXVII", "LXXVIII", "LXXIX",
-                "LXXX", "LXXXI", "LXXXII", "LXXXIII", "LXXXIV", "LXXXV", "LXXXVI", "LXXXVII", "LXXXVIII", "LXXXIX",
-                "XC", "XCI", "XCII", "XCIII", "XCIV", "XCV", "XCVI", "XCVII", "XCVIII", "XCIX", "C"};
-        int a=0;
-        int b=0;
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        try {
-            str = bufferedReader.readLine().split(" ");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+
+    static String[] str;
+    static String[] sim = {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX",
+            "XX", "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI", "XXVII", "XXVIII", "XXIX",
+            "XXX", "XXXI", "XXXII", "XXXIII", "XXXIV", "XXXV", "XXXVI", "XXXVII", "XXXVIII", "XXXIX",
+            "XL", "XLI", "XLII", "XLIII", "XLIV", "XLV", "XLVI", "XLVII", "XLVIII", "XLIX",
+            "L", "LI", "LII", "LIII", "LIV", "LV", "LVI", "LVII", "LVIII", "LIX",
+            "LX", "LXI", "LXII", "LXIII", "LXIV", "LXV", "LXVI", "LXVII", "LXVIII", "LXIX",
+            "LXX", "LXXI", "LXXII", "LXXIII", "LXXIV", "LXXV", "LXXVI", "LXXVII", "LXXVIII", "LXXIX",
+            "LXXX", "LXXXI", "LXXXII", "LXXXIII", "LXXXIV", "LXXXV", "LXXXVI", "LXXXVII", "LXXXVIII", "LXXXIX",
+            "XC", "XCI", "XCII", "XCIII", "XCIV", "XCV", "XCVI", "XCVII", "XCVIII", "XCIX", "C"};
+    static int a=0;
+    static int b=0;
+
+    public static String calc(String input) throws Exception {
+
+        int k = 0;
+        for (int i = 0; i < str.length; i++){
+            if (str[i].equals("+") || str[i].equals("-") || str[i].equals("/") || str[i].equals("*")){
+                k++;
+            }
+        }
+        if(k > 1){
+            throw new Exception("Введено более 2х операндов");
         }
 
         for (int i = 10; i < sim.length; i++){
@@ -48,8 +54,11 @@ public class Main {
         if (a < 1 || a > 10 || b < 1 || b > 10){
             throw new Exception("Принимаются числа от 1 до 10 включительно");
         }
-        System.out.println(result(a, b, str[1]));
+        //System.out.println(result(a, b, str[1]));
+        return String.valueOf(result(a, b, str[1]));
     }
+
+
 
     //Узнать знак и вернуть результат подсчетов
     public static int result(int a, int b, String c) throws Exception {
@@ -61,5 +70,17 @@ public class Main {
             default -> throw new Exception("Арифметическая операция не соответсвует заданию");
         };
         return res;
+    }
+
+    public static void main(String[] args) throws Exception {
+
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            str = bufferedReader.readLine().split(" ");
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(calc(String.valueOf(str)));
     }
 }
